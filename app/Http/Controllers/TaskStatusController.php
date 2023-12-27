@@ -13,7 +13,7 @@ class TaskStatusController extends Controller
     public function index()
     {
         $taskStatuses = TaskStatus::All();
-        return view("task_statuses.index", compact("taskStatuses"));
+        return view('task_statuses.index', compact('taskStatuses'));
     }
 
     /**
@@ -28,20 +28,19 @@ class TaskStatusController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request -> validate([
-            'nombre'=> 'required|string|max:255',
-            'descripcion'=> 'nullable|string'
-        ]);
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'nullable|string',
+    ]);
 
-        TaskStatus::create([
-            'nombre'=> $request -> input('nombre'),
-            'descripcion' => $request -> input('descripcion')
-        ]);
+    TaskStatus::create([
+        'nombre' => $request->input('nombre'),
+        'descripcion' => $request->input('descripcion'),
+    ]);
 
-        return redirect('task_statuses.index')->with('success','Estado de Tarea Creado');
-    }
-
+    return redirect()->route('task_statuses.index')->with('success', 'Estado de Tarea Creado');
+}
     /**
      * Display the specified resource.
      */
@@ -63,25 +62,24 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, TaskStatus $taskStatus)
     {
-        $request -> validate([
-            'nombre'=> 'required|string|max:255',
-            'descripcion'=> 'nullable|string'
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
         ]);
 
-        TaskStatus::update([
-            'nombre'=> $request -> input('nombre'),
-            'descripcion' => $request -> input('descripcion')
+        $taskStatus->update([
+            'nombre' => $request->input('nombre'),
+            'descripcion' => $request->input('descripcion'),
         ]);
 
-        return redirect('task_statuses.index')->with('success','Estado de Tarea Actualizado');
+        return redirect()->route('task_statuses.index')->with('success', 'Estado de Tarea Actualizado');
     }
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(TaskStatus $taskStatus)
     {
         $taskStatus->delete();
-        return redirect()->route('taks_statuses.index')->with('success','Estado de tarea eliminado');
+        return redirect()->route('task_statuses.index')->with('success','Estado de tarea eliminado');
     }
 }
