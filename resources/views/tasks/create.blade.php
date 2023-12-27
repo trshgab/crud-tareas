@@ -19,13 +19,12 @@
             <div class="mb-4">
                 <label for="estatus" class="block text-sm font-medium text-gray-600">Estatus:</label>
                 <select name="status_id" id="estatus" class="mt-1 p-2 border rounded w-full">
-                    <!-- Aquí debes llenar las opciones del select según tus estados de tarea -->
-                    <!-- Ejemplo -->
-                    <option value="1">En Proceso</option>
-                    <option value="2">Completada</option>
-                    <!-- Fin del ejemplo -->
+                    @foreach($taskStatuses as $status)
+                        <option value="{{ $status->id }}">{{ $status->nombre }}</option>
+                    @endforeach
                 </select>
             </div>
+            
 
             <div class="mt-6">
                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Guardar Tarea</button>
