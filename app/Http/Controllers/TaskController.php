@@ -60,11 +60,13 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
+        $usuarioAutenticado = Auth::user();
+        
         $task->update([
             'titulo' => $request->input('titulo'),
             'descripcion' => $request->input('descripcion'),
             'fecha_limite' => $request->input('fecha_limite'),
-            'user_id' => $request->input('user_id'),
+            'user_id' => $usuarioAutenticado->id,
             'status_id' => $request->input('status_id'),
         ]);
 
