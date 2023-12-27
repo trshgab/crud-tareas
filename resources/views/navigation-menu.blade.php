@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <img src="{{ asset('images/logo_cos.png') }}" alt="Logo" class="block h-9 w-auto" />
                     </a>
                 </div>
 
@@ -14,6 +14,16 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                
+                    <!-- Enlace a la sección de tareas -->
+                    <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
+                        {{ __('Tasks') }}
+                    </x-nav-link>
+                
+                    <!-- Enlace a la sección de estados de tarea -->
+                    <x-nav-link href="{{ route('task_statuses.index') }}" :active="request()->routeIs('task-statuses.*')">
+                        {{ __('Task Statuses') }}
                     </x-nav-link>
                 </div>
             </div>
