@@ -16,20 +16,20 @@ class UsuarioSeeder extends Seeder
     {
         $this->command->info('Cargando Usuarios Admin');
         DB::table('users')->insert(array(
-        	"name" => "gabriel ",
+        	"name" => "gabriel",
         	"email" => "gmrgabo@gmail.com",
         	"password" => Hash::make("12341234"),
             "current_team_id" => 1
         ));
         DB::table('users')->insert(array(
-            "name" => "owner",
-            "email" => "owner@own.com",
+            "name" => "admin",
+            "email" => "admin@adm.com",
             "password" => Hash::make("12341234"),
             "current_team_id" => 2
         ));
         DB::table('users')->insert(array(
-            "name" => "owner",
-            "email" => "owner2@own.com",
+            "name" => "user",
+            "email" => "user@usr.com",
             "password" => Hash::make("12341234"),
             "current_team_id" => 3
         ));

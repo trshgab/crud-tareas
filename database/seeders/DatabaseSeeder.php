@@ -16,9 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call(UsuarioSeeder::class);
-       \App\Models\User::factory(10)->create();
-       \App\Models\Task::factory(10)->create();
-       \App\Models\Team::factory(3)->create();
+        $this->call(TaskStatusSeeder::class);
+        $this->call(TeamSeeder::class);
+    //    \App\Models\User::factory(10)->create();
+     //   \App\Models\Task::factory(10)->create();
+    //    \App\Models\Team::factory(3)->create();
        
 
         // \App\Models\User::factory()->create();
