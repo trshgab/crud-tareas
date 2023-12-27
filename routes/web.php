@@ -1,22 +1,11 @@
 <?php
 
-use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TaskStatusController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-
-
+use Laravel\Fortify\Http\Controllers\ProfileInformationController;
+use Laravel\Fortify\Http\Controllers\PasswordController;
+use Laravel\Fortify\Http\Controllers\TwoFactorAuthenticationController;
+use App\Http\Controllers\TaskStatusController;
+use App\Http\Controllers\TaskController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,12 +15,16 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    Route::resource('task_statuses', TaskStatusController::class);
+    Route::resource('tasks', TaskController::class);
+
+    // Rutas de perfil de usuario
+    Route::put('/profile-information', [ProfileInformationController::class, 'update'])->name('profile-information.update');
+    Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
+    Route::post('/two-factor-authentication', [TwoFactorAuthenticationController::class, 'store'])->name('two-factor.enable');
+    
     // Ruta para redirigir automáticamente a /tasks después de iniciar sesión
     Route::get('/dashboard', function () {
         return redirect()->route('tasks.index');
     })->name('dashboard');
-
-    Route::resource('task-statuses', TaskStatusController::class);
-    Route::resource('tasks', TaskController::class);
 });
-
