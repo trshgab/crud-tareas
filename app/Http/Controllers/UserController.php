@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Team;
 
 class UserController extends Controller
 {
@@ -15,25 +16,27 @@ class UserController extends Controller
 
     public function create() // Muestro el formulario para registrar un usuario 
     {
-        return view('users.create');
+        $roles = Team::pluck('name', 'id');
+        return view('users.create', compact('roles'));
     }
 
     public function store(Request $request) // Almaceno Usuarios en la base de datos
     {
         // Validación de datos
         $request->validate([
-            'nombre' => 'required|string|max:255',
-            'email' => 'required|email|unique:usuarios',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8',
+            'current_team_id' => 'required|max:1'
 
         ]);
 
         // Crea un nuevo usuario en la Base de datos
         User::create([
-            'nombre' => $request->input('nombre'),
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-
+            'current_team_id' => $request->input('current_team_id'),
         ]);
 
         return redirect()->route('users.index')->with('success', 'Usuario Registrado Correctamente'); // redirige a las lista de usuarios con un mensaje de exito
@@ -42,28 +45,35 @@ class UserController extends Controller
 
     public function show(User $user) // Muestra un usuario especifico, por eso usa el <User $user>
     {
+        
         return view('users.show', compact('user'));
     }
 
 
     public function edit(User $user) //Muestra el form para editar un usuario especifico
     {
-        return view('users.edit', compact('user'));
+        // $user = User::find($user);
+        // $users = User::all(); // Futuro selector 
+        $roles = Team::pluck('name', 'id');
+
+        return view('users.edit', compact('user','roles'));
     }
 
     public function update(Request $request, User $user) // Actualiza un usuario en la base de datos
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
-            'email' => 'required|email|unique:usuarios',
-            'password' => 'required|string|min:8',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,'.$user->id,
+            //'password' => 'required|string|min:8',
+            'current_team_id' => 'required|max:1'
 
         ]);
         
         $user->update([
-            'nombre' => $request->input('nombre'),
+            'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+            //'password' => bcrypt($request->input('password')),
+            'current_team_id' => $request->input('current_team_id'),
 
         ]);
 

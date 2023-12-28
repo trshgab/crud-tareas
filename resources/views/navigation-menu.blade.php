@@ -25,6 +25,11 @@
                     <x-nav-link href="{{ route('task_statuses.index') }}" :active="request()->routeIs('task-statuses.*')">
                         {{ __('Estados de Tareas') }}
                     </x-nav-link>
+
+                    <!-- Enlace a la sección de usuarios -->
+                    <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
+                        {{ __('Usuarios') }}
+                    </x-nav-link>
                 </div>
             </div>
 
