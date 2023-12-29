@@ -15,7 +15,7 @@ class UserActivityController extends Controller
      */
     public function index()
     {
-        $userActivities = UserActivity::All();
+        $userActivities = UserActivity::latest()->paginate(10);
 
         return view('user_activities.index', compact('userActivities'));
     }

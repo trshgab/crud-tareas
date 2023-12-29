@@ -22,7 +22,7 @@
                     </x-nav-link>
                 
                     <!-- Enlace a la sección de estados de tarea -->
-                    <x-nav-link href="{{ route('task_statuses.index') }}" :active="request()->routeIs('task-statuses.*')">
+                    <x-nav-link href="{{ route('task_statuses.index') }}" :active="request()->routeIs('task_statuses.*')">
                         {{ __('Estados de Tareas') }}
                     </x-nav-link>
 

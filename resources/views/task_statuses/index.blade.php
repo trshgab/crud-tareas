@@ -7,7 +7,7 @@
         <table class="w-full border-collapse mb-6">
             <thead>
                 <tr>
-                    <th class="border p-2">#</th>
+                    {{-- <th class="border p-2">#</th> --}}
                     <th class="border p-2">Nombre</th>
                     <th class="border p-2">Descripción</th>
                     <th class="border p-2">Acciones</th>
@@ -16,7 +16,7 @@
             <tbody>
                 @foreach ($taskStatuses as $status)
                     <tr>
-                        <td class="border p-2">{{ $status->id }}</td>
+                        {{-- <td class="border p-2">{{ $status->id }}</td> --}}
                         <td class="border p-2">{{ $status->nombre }}</td>
                         <td class="border p-2">{{ $status->descripcion ?: 'Sin descripción' }}</td>
                         <td class="border p-2">
@@ -32,6 +32,8 @@
                 @endforeach
             </tbody>
         </table>
+
+        {{ $taskStatuses->links() }}
 
         <div class="mt-4">
             <a href="{{ route('task_statuses.create') }}" class="text-blue-500">Crear Nuevo Estado de Tarea</a>

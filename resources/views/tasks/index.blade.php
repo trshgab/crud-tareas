@@ -16,7 +16,7 @@
                 <tbody>
                     @foreach ($tasks as $task)
                         <tr>
-                            <td class="border p-2">{{ $task->id }}</td>
+                            <td class="border p-2">{{ $task->created_at }}</td>
                             <td class="border p-2">{{ $task->titulo }}</td>
                             <td class="border p-2">
                                 <!-- Mostrar el estado de la tarea -->
@@ -39,6 +39,9 @@
                     @endforeach
                 </tbody>
             </table>
+
+            {{ $tasks->links() }}
+
             <div class="mt-4">
                 <a href="{{ route('tasks.create') }}" class="text-blue-500">Crear Nueva Tarea</a>
             </div>

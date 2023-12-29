@@ -35,6 +35,8 @@
             </tbody>
         </table>
 
+        {{ $users->links() }}
+
         <div class="mt-4">
             <a href="{{ route('users.create')}}" class="text-blue-500">Crear Nuevo Usuario</a>
         </div>

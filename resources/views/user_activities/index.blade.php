@@ -25,6 +25,8 @@
             </tbody>
         </table>
 
+        {{ $userActivities->links() }}
+
         <div class="mt-4">
             <!-- Agrega aquí enlaces adicionales o botones según sea necesario -->
         </div>
