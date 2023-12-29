@@ -4,4 +4,4 @@
 
 Este es un sistema de gestion de tareas para la Clinica de Ojos del Sud
 
-## Proyecto Privado!!! 
+## Proyecto Privado 
