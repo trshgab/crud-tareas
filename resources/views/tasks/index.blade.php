@@ -26,13 +26,41 @@
                                     Sin Estado
                                 @endif
                             </td>
-                            <td class="border p-2">
+                            {{-- <td class="border p-2">
                                 <a href="{{ route('tasks.show', $task->id) }}" class="text-blue-500 mr-2">Ver</a>
                                 <a href="{{ route('tasks.edit', $task->id) }}" class="text-green-500">Editar</a>
                                 <form action="{{ route('tasks.destroy', $task->id) }}" method="post" class="inline">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="text-red-500">Eliminar</button>
+                                </form>
+                            </td> --}}
+                            <td class="border p-2">
+                                <!-- Botón para ver la actividad -->
+                                <form action="{{ route('tasks.show', $task->id) }}" method="get" class="inline">
+                                    @csrf
+                                    {{-- @method('show') --}}
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-eye"></i> Ver
+                                    </button>
+                                </form>
+    
+                                <!-- Botón para editar la actividad -->
+                                <form action="{{ route('tasks.edit', $task->id) }}" method="get" class="inline">
+                                    @csrf
+                                    {{-- @method('edit') --}}
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                </form>
+    
+                                <!-- Botón para eliminar la actividad -->
+                                <form action="{{ route('tasks.destroy', $task->id) }}" method="post" class="inline">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
                                 </form>
                             </td>
                         </tr>
