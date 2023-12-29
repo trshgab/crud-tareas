@@ -30,6 +30,11 @@
                     <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
                         {{ __('Usuarios') }}
                     </x-nav-link>
+
+                    <x-nav-link href="{{ route('user_activities.index') }}" :active="request()->routeIs('user_activities.*')">
+                        {{ __('Log') }}
+                    </x-nav-link>
+
                 </div>
             </div>
 

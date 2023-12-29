@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TaskStatus;
+use App\Models\UserActivity;
 use Illuminate\Http\Request;
 
 class TaskStatusController extends Controller
@@ -39,6 +40,11 @@ class TaskStatusController extends Controller
         'descripcion' => $request->input('descripcion'),
     ]);
 
+    UserActivity::create([
+        'user_id' => auth()->user()->id,
+        'action_type' => 'Creación de Estado Tarea',
+    ]);
+
     return redirect()->route('task_statuses.index')->with('success', 'Estado de Tarea Creado');
 }
     /**
@@ -71,6 +77,12 @@ class TaskStatusController extends Controller
             'nombre' => $request->input('nombre'),
             'descripcion' => $request->input('descripcion'),
         ]);
+
+        UserActivity::create([
+            'user_id' => auth()->user()->id,
+            'action_type' => 'Creación de Estado Tarea',
+        ]);
+
 
         return redirect()->route('task_statuses.index')->with('success', 'Estado de Tarea Actualizado');
     }

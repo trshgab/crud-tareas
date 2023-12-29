@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Team;
+use App\Models\UserActivity;
 
 class UserController extends Controller
 {
@@ -37,6 +38,11 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
             'current_team_id' => $request->input('current_team_id'),
+        ]);
+
+        UserActivity::create([
+            'user_id' => auth()->user()->id,
+            'action_type' => 'Creación de Usuario',
         ]);
 
         return redirect()->route('users.index')->with('success', 'Usuario Registrado Correctamente'); // redirige a las lista de usuarios con un mensaje de exito
@@ -77,12 +83,23 @@ class UserController extends Controller
 
         ]);
 
+        UserActivity::create([
+            'user_id' => auth()->user()->id,
+            'action_type' => 'Edicion De Usuario',
+        ]);
+
         return redirect()->route('users.index')->with('success', 'Usuario Actualizado Correctamente');
     }
 
     public function destroy(User $user) // Elimina un usuario
     {
         $user->delete(); // Elimina
+
+        UserActivity::create([
+            'user_id' => auth()->user()->id,
+            'action_type' => 'Eliminación de Usuario',
+        ]);
+
         return redirect()->route('users.index')->with('sucess', 'Usuario Eliminado Exitosamente'); // Redirige
     }
 }
