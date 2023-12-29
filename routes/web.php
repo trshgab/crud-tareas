@@ -14,23 +14,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+
+Route::middleware(['auth:sanctum', 'verified', 'team.access'])->group(function () {
+    // Todas las rutas aquí tendrán acceso para current_team_id = 1
     Route::resource('task_statuses', TaskStatusController::class);
     Route::resource('tasks', TaskController::class);
     Route::resource('users', UserController::class);
     Route::resource('user_activities', UserActivityController::class);
 
     
-    Route::put('/profile-information', [ProfileInformationController::class, 'update'])->name('profile-information.update');
-    Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
-    Route::post('/two-factor-authentication', [TwoFactorAuthenticationController::class, 'store'])->name('two-factor.enable');
-    
-    // Ruta para redirigir automáticamente a /tasks después de iniciar sesión
-    Route::get('/dashboard', function () {
-        return redirect()->route('tasks.index');
-    })->name('dashboard');
 });
+
+// Rutas para usuarios con current_team_id = 2
+Route::middleware(['auth:sanctum', 'verified', 'team.access'])->group(function () {
+    Route::resource('tasks', TaskController::class);
+    Route::resource('user_activities', UserActivityController::class);
+
+    
+});
+
+// Rutas para usuarios con current_team_id = 3
+Route::middleware(['auth:sanctum', 'verified', 'team.access'])->group(function () {
+    Route::resource('tasks', TaskController::class);
+
+    
+});
+
+Route::get('/dashboard', function () {
+    return redirect()->route('tasks.index');
+    })->name('tasks');

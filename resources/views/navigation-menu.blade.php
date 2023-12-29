@@ -5,37 +5,59 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('images/logo_cos.png') }}" alt="Logo" class="block h-9 w-auto" />
+                    <a href="{{ route('tasks') }}">
+                        <img src="{{ asset('images/logo_cos.png') }}" alt="Logo" class="block h-10 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Inicio') }}
-                    </x-nav-link>
+                <div class="hidden space-x-6 sm:-my-px sm:ms-10 sm:flex">
                 
-                    <!-- Enlace a la sección de tareas -->
-                    <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
-                        {{ __('Tareas') }}
-                    </x-nav-link>
-                
-                    <!-- Enlace a la sección de estados de tarea -->
-                    <x-nav-link href="{{ route('task_statuses.index') }}" :active="request()->routeIs('task_statuses.*')">
-                        {{ __('Estados de Tareas') }}
-                    </x-nav-link>
+                    @auth
+                        @if(auth()->user()->current_team_id == 1)
+                            <!-- Sección para usuarios con current_team_id = 1 -->
+                            <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
+                                {{ __('Tareas') }}
+                            </x-nav-link>
+                            
+                            <x-nav-link href="{{ route('task_statuses.index') }}" :active="request()->routeIs('task_statuses.*')">
+                                {{ __('Estados de Tarea') }}
+                            </x-nav-link>
 
-                    <!-- Enlace a la sección de usuarios -->
-                    <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
-                        {{ __('Usuarios') }}
-                    </x-nav-link>
+                            <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.*')">
+                                {{ __('Usuarios') }}
+                            </x-nav-link>
 
-                    <x-nav-link href="{{ route('user_activities.index') }}" :active="request()->routeIs('user_activities.*')">
-                        {{ __('Log') }}
-                    </x-nav-link>
+                            <x-nav-link href="{{ route('user_activities.index') }}" :active="request()->routeIs('user_activities.*')">
+                                {{ __('Actividades') }}
+                            </x-nav-link>
+                            
+                        @elseif(auth()->user()->current_team_id == 2)
+                            <!-- Sección para usuarios con current_team_id = 2 -->
+                            <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
+                                {{ __('Tareas') }}
+                            </x-nav-link>
+                            <x-nav-link href="{{ route('user_activities.index') }}" :active="request()->routeIs('user_activities.*')">
+                                {{ __('Actividades de Usuario') }}
+                            </x-nav-link>
+                            
+                        @elseif(auth()->user()->current_team_id == 3)
+                            <!-- Sección para usuarios con current_team_id = 3 -->
+                            <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
+                                {{ __('Tareas') }}
+                            </x-nav-link>
+                            
+                        @endif
+                    @endauth
 
                 </div>
+
+
+                <!-- Ocultar secciones según el current_team_id -->
+                
+
+<!-- ... otras secciones del navbar ... -->
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -159,7 +181,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link href="{{ route('tasks') }}" :active="request()->routeIs('tasks')">
                 {{ __('Inicio') }}
             </x-responsive-nav-link>
         </div>
