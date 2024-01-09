@@ -14,11 +14,27 @@ use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::latest()->paginate(10);
-
-        return view('tasks.index', compact('tasks'));
+        $search = $request->input('search');
+        $statusId = $request->input('status_id');
+        $day = $request->input('day');
+    
+        $tasks = Task::when($search, function ($query) use ($search) {
+                $query->where('titulo', 'like', '%' . $search . '%');
+            })
+            ->when($statusId, function ($query) use ($statusId) {
+                $query->where('status_id', $statusId);
+            })
+            ->when($day, function ($query) use ($day) {
+                $query->whereDate('created_at', $day);
+            })
+            ->latest()
+            ->paginate(10);
+    
+        $statuses = TaskStatus::all(); // Esto es necesario para llenar las opciones en el formulario
+    
+        return view('tasks.index', compact('tasks', 'statuses'));
     }
 
 

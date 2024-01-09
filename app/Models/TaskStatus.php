@@ -11,7 +11,7 @@ class TaskStatus extends Model
 
     protected $table = 'task_statuses';
     protected $primaryKey = 'id';
-    protected $fillable = ['nombre', 'descripcion'];
+    protected $fillable = ['nombre', 'descripcion','color'];
 
     public function role(){
         return $this->hasMany(Task::class, 'status_id');

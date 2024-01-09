@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserActivity;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserActivityController extends Controller
 {
@@ -13,11 +14,32 @@ class UserActivityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $userActivities = UserActivity::latest()->paginate(10);
+        $query = UserActivity::with('user')->latest();
 
-        return view('user_activities.index', compact('userActivities'));
+    // Búsqueda por Usuario
+    if ($request->filled('search')) {
+        $query->whereHas('user', function ($userQuery) use ($request) {
+            $userQuery->where('name', 'like', '%' . $request->input('search') . '%');
+        });
+    }
+
+    // Búsqueda por Tipo de Acción
+    if ($request->filled('action_type')) {
+        $query->where('action_type', 'like', '%' . $request->input('action_type') . '%');
+    }
+
+    // Búsqueda por Día
+    if ($request->filled('day')) {
+        $query->whereDate('created_at', '=', $request->input('day'));
+    }
+
+
+
+    $userActivities = $query->paginate(10);
+
+    return view('user_activities.index', compact('userActivities'));
     }
 
     /**

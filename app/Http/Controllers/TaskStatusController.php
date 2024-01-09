@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\TaskStatus;
 use App\Models\UserActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TaskStatusController extends Controller
 {
@@ -29,24 +30,29 @@ class TaskStatusController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'nombre' => 'required|string|max:255',
-        'descripcion' => 'nullable|string',
-    ]);
+    {
 
-    TaskStatus::create([
-        'nombre' => $request->input('nombre'),
-        'descripcion' => $request->input('descripcion'),
-    ]);
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'color' => 'required',
+        ]);
 
-    UserActivity::create([
-        'user_id' => auth()->user()->id,
-        'action_type' => 'Creación de Estado Tarea',
-    ]);
+        $colorRgb = $this->hexToRgb($request);
 
-    return redirect()->route('task_statuses.index')->with('success', 'Estado de Tarea Creado');
-}
+        TaskStatus::create([
+            'nombre' => $request->input('nombre'),
+            'descripcion' => $request->input('descripcion'),
+            'color' =>  $colorRgb
+        ]);
+
+        UserActivity::create([
+            'user_id' => auth()->user()->id,
+            'action_type' => 'Creación de Estado Tarea',
+        ]);
+
+        return redirect()->route('task_statuses.index')->with('success', 'Estado de Tarea Creado');
+    }
     /**
      * Display the specified resource.
      */
@@ -68,14 +74,21 @@ class TaskStatusController extends Controller
      */
     public function update(Request $request, TaskStatus $taskStatus)
     {
+        
+        
+
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
+            'color' => 'required',
         ]);
+
+        $colorRgb = $this->hexToRgb($request);
 
         $taskStatus->update([
             'nombre' => $request->input('nombre'),
             'descripcion' => $request->input('descripcion'),
+            'color' =>  $colorRgb
         ]);
 
         UserActivity::create([
@@ -94,4 +107,20 @@ class TaskStatusController extends Controller
         $taskStatus->delete();
         return redirect()->route('task_statuses.index')->with('success','Estado de tarea eliminado');
     }
+
+    public function hexToRgb(Request $request)
+{
+    // Elimina el caracter '#' si está presente
+    $hex = Str::replaceFirst('#', '', $request->input('color'));
+
+    // Convierte cada par de caracteres a un número decimal
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+
+    // Retorna el color en formato RGB
+    return "$r, $g, $b";
+}
+
+
 }

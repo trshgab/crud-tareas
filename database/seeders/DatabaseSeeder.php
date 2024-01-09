@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TaskStatusSeeder::class);
         $this->call(TeamSeeder::class);
         // \App\Models\User::factory(20)->create();
-        // \App\Models\Task::factory(20)->create();
+        // \App\Models\Task::factory(100)->create();
         // \App\Models\Team::factory(20)->create();
        
 
