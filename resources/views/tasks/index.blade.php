@@ -4,12 +4,37 @@
         <div class="bg-white p-6 rounded shadow-md mx-auto w-5/6 mt-10">
         {{--<div class="bg-white p-6 rounded shadow-md mx-auto mt-10 ">--}}
             <h1 class="text-2xl font-semibold mb-6">Lista de Tareas</h1>
+
+            <form action="{{ route('tasks.index') }}" method="GET" class="mb-4 flex">
+                <div class="mr-4">
+                    <label for="search" class="mr-2">Buscar por título:</label>
+                    <input type="text" name="search" id="search" placeholder="Título" class="border p-2">
+                </div>
+            
+                <div class="mr-4">
+                    <label for="status" class="mr-2">Filtrar por estado:</label>
+                    <select name="status_id" id="status" class="border p-2 w-60">
+                        <option value="" selected>Seleccione un estado</option>
+                        @foreach($statuses as $status)
+                            <option value="{{ $status->id }}">{{ $status->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            
+                <div>
+                    <label for="day" class="mr-2">Filtrar por día:</label>
+                    <input type="date" name="day" id="day" class="border p-2">
+                </div>
+            
+                <button type="submit" class="bg-blue-500 text-white p-2 ml-2">Buscar</button>
+            </form>
+
             <table class="w-full border-collapse mb-6">
                 <thead>
                     <tr>
-                        <th class="border p-2">#</th>
+                        <th class="border p-2">Fecha y Hora</th>
                         <th class="border p-2">Título</th>
-                        <th class="border p-2">Estatus</th>
+                        <th class="border p-2">Estado</th>
                         <th class="border p-2">Acciones</th>
                     </tr>
                 </thead>
@@ -18,10 +43,10 @@
                         <tr>
                             <td class="border p-2">{{ $task->created_at }}</td>
                             <td class="border p-2">{{ $task->titulo }}</td>
-                            <td class="border p-2">
+                            <td class="border p-2" style="background-color: rgba({{ $task->status->color }}, 0.3);">{{ $task->status->nombre }}
                                 <!-- Mostrar el estado de la tarea -->
                                 @if ($task->status)
-                                    {{ $task->status->nombre }}
+                                    
                                 @else
                                     Sin Estado
                                 @endif

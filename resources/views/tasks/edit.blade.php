@@ -19,7 +19,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="estatus" class="block text-sm font-medium text-gray-600">Estatus:</label>
+                <label for="estatus" class="block text-sm font-medium text-gray-600">Estado:</label>
                 <select name="status_id" id="estatus" class="mt-1 p-2 border rounded w-full">
                     @foreach($taskStatuses as $status)
                         <option value="{{ $status->id }}" {{ $task->status_id == $status->id ? 'selected' : '' }}>

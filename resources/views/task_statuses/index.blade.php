@@ -10,38 +10,31 @@
                     {{-- <th class="border p-2">#</th> --}}
                     <th class="border p-2">Nombre</th>
                     <th class="border p-2">Descripción</th>
+                    <th class="border p-2">Estado</th>
                     <th class="border p-2">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($taskStatuses as $status)
                     <tr>
-                        {{-- <td class="border p-2">{{ $status->id }}</td> --}}
                         <td class="border p-2">{{ $status->nombre }}</td>
                         <td class="border p-2">{{ $status->descripcion ?: 'Sin descripción' }}</td>
-                        {{-- <td class="border p-2">
-                            <a href="{{ route('task_statuses.show', $status->id) }}" class="text-blue-500 mr-2">Ver</a>
-                            <a href="{{ route('task_statuses.edit', $status->id) }}" class="text-green-500">Editar</a>
-                            <form action="{{ route('task_statuses.destroy', $status->id) }}" method="post" class="inline">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="text-red-500">Eliminar</button>
-                            </form>
-                        </td> --}}
+                        <td class="border p-2" style="background-color: rgb({{ $status->color }}, 0.3);">{{ $status->nombre }}</td>
+
                         <td class="border p-2">
-                            <!-- Botón para ver la actividad -->
+
                             <form action="{{ route('task_statuses.show', $status->id) }}" method="get" class="inline">
                                 @csrf
-                                {{-- @method('show') --}}
+
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-eye"></i> Ver
                                 </button>
                             </form>
 
-                            <!-- Botón para editar la actividad -->
+
                             <form action="{{ route('task_statuses.edit', $status->id) }}" method="get" class="inline">
                                 @csrf
-                                {{-- @method('edit') --}}
+
                                 <button type="submit" class="btn btn-success">
                                     <i class="fas fa-edit"></i> Editar
                                 </button>

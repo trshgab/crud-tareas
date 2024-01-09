@@ -16,6 +16,11 @@
                 <textarea name="descripcion" id="descripcion" rows="4" class="mt-1 p-2 border rounded w-full"></textarea>
             </div>
 
+            <div class="mb-4">
+                <label for="color" class="block text-sm font-medium text-gray-600">Color:</label>
+                <input type="color" name="color" id="color" class="mt-4 p-1 border rounded w-full">
+            </div>
+
             <div class="mt-6">
                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Crear Estado de Tarea</button>
             </div>
@@ -26,3 +31,5 @@
         </div>
     </div>
 @endsection
+
+
