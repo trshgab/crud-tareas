@@ -20,8 +20,11 @@
                 <label for="estatus" class="block text-sm font-medium text-gray-600">Estado:</label>
                 <select name="status_id" id="estatus" class="mt-1 p-2 border rounded w-full">
                     @foreach($taskStatuses as $status)
-                        <option value="{{ $status->id }}">{{ $status->nombre }}</option>
-                    @endforeach
+                        <option value="{{ $status->id }}" {{ $status->id == 3 ? 'selected' : ''}}> {{-- Por default es Pendiente --}}
+                            {{ $status->nombre }}
+                        </option>
+                    @endforeach 
+                    
                 </select>
             </div>
             

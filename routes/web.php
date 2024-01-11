@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 
 
-Route::middleware(['auth:sanctum', 'verified', 'team.access'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Todas las rutas aquí tendrán acceso para current_team_id = 1
     Route::resource('task_statuses', TaskStatusController::class);
     Route::resource('tasks', TaskController::class);
@@ -25,20 +25,6 @@ Route::middleware(['auth:sanctum', 'verified', 'team.access'])->group(function (
     
 });
 
-// Rutas para usuarios con current_team_id = 2
-Route::middleware(['auth:sanctum', 'verified', 'team.access'])->group(function () {
-    Route::resource('tasks', TaskController::class);
-    Route::resource('user_activities', UserActivityController::class);
-
-    
-});
-
-// Rutas para usuarios con current_team_id = 3
-Route::middleware(['auth:sanctum', 'verified', 'team.access'])->group(function () {
-    Route::resource('tasks', TaskController::class);
-
-    
-});
 
 Route::get('/dashboard', function () {
     return redirect()->route('tasks.index');

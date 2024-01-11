@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Spatie\Permission\Middlewares\RoleMiddleware::class, // Agregado para roles
         ],
 
         'api' => [
@@ -68,6 +69,6 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         
-        'team.access' => \App\Http\Middleware\TeamAccessMiddleware::class,
+        
     ];
 }

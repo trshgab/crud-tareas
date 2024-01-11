@@ -14,7 +14,7 @@
                 <div class="hidden space-x-6 sm:-my-px sm:ms-10 sm:flex">
                 
                     @auth
-                        @if(auth()->user()->current_team_id == 1)
+                       
                             <!-- Sección para usuarios con current_team_id = 1 -->
                             <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
                                 {{ __('Tareas') }}
@@ -32,22 +32,8 @@
                                 {{ __('Actividades') }}
                             </x-nav-link>
                             
-                        @elseif(auth()->user()->current_team_id == 2)
-                            <!-- Sección para usuarios con current_team_id = 2 -->
-                            <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
-                                {{ __('Tareas') }}
-                            </x-nav-link>
-                            <x-nav-link href="{{ route('user_activities.index') }}" :active="request()->routeIs('user_activities.*')">
-                                {{ __('Actividades de Usuario') }}
-                            </x-nav-link>
                             
-                        @elseif(auth()->user()->current_team_id == 3)
-                            <!-- Sección para usuarios con current_team_id = 3 -->
-                            <x-nav-link href="{{ route('tasks.index') }}" :active="request()->routeIs('tasks.*')">
-                                {{ __('Tareas') }}
-                            </x-nav-link>
-                            
-                        @endif
+                        
                     @endauth
 
                 </div>

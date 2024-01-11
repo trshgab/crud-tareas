@@ -1,23 +1,18 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Team Settings') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div>
-        <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
-            @livewire('teams.update-team-name-form', ['team' => $team])
+@section('content')
+    <div class="max-w-2xl mx-auto mt-10 bg-white p-6 rounded shadow-md">
+        <h1 class="text-2xl font-semibold mb-6">Detalles del Equipo</h1>
 
-            @livewire('teams.team-member-manager', ['team' => $team])
+        <div>
+            <p class="text-sm font-medium text-gray-600">Nombre del Equipo:</p>
+            <p class="mt-1">{{ $team->name }}</p>
+        </div>
 
-            @if (Gate::check('delete', $team) && ! $team->personal_team)
-                <x-section-border />
+        <!-- Otras opciones relacionadas con la visualización de detalles de equipos -->
 
-                <div class="mt-10 sm:mt-0">
-                    @livewire('teams.delete-team-form', ['team' => $team])
-                </div>
-            @endif
+        <div class="mt-6">
+            <a href="{{ route('teams.index') }}" class="text-blue-500">Volver a la Lista de Equipos</a>
         </div>
     </div>
-</x-app-layout>
+@endsection

@@ -44,6 +44,7 @@ class Team extends JetstreamTeam
     ];
 
     public function users(){
-        return $this->hasMany(User::class, 'current_team_id');
+//        return $this->hasMany(User::class, 'current_team_id');
+        return $this->belongsToMany(User::class);
     }
 }
