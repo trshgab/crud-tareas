@@ -16,43 +16,44 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         $this->command->info('Cargando Roles');
-        // $role1 = Role::create(['name'=>'Owner', 'team_id' => 1]);
-        // $role2 = Role::create(['name'=>'Admin', 'team_id' => 2]);
-        // $role3 = Role::create(['name'=>'User', 'team_id' => 3]);
+        // $rol_owner = Role::create(['name'=>'Owner', 'team_id' => 1]);
+        // $rol_admin = Role::create(['name'=>'Admin', 'team_id' => 2]);
+        // $rol_admin = Role::create(['name'=>'User', 'team_id' => 3]);
 
-        $role1 = Role::create(['name'=>'Owner', 'guard_name' => 'web']);
+        $rol_owner = Role::create(['name'=>'Owner', 'guard_name' => 'web']);
+        $rol_admin = Role::create(['name'=>'Admin', 'guard_name' => 'web']);
+        $rol_user = Role::create(['name'=>'User', 'guard_name' => 'web']);
 
 
-        $permission = Permission::create(['name' => 'tasks.create'])->assignRole($role1);
-        $permission = Permission::create(['name' => 'tasks.show'])->assignRole($role1);
-        $permission = Permission::create(['name' => 'tasks.edit'])->assignRole($role1);
-        $permission = Permission::create(['name' => 'tasks.destroy'])->assignRole($role1);
-
-        $permission = Permission::create(['name' => 'task_statuses.create'])->assignRole($role1);
-        $permission = Permission::create(['name' => 'task_statuses.show'])->assignRole($role1);
-        $permission = Permission::create(['name' => 'task_statuses.edit'])->assignRole($role1);
-        $permission = Permission::create(['name' => 'task_statuses.destroy'])->assignRole($role1);
         
-        $permission1 = Permission::create(['name' => 'users.create'])->assignRole($role1);
-        $permission2 = Permission::create(['name' => 'users.show'])->assignRole($role1);
-        $permission3 = Permission::create(['name' => 'users.edit'])->assignRole($role1);
-        $permission4 = Permission::create(['name' => 'users.destroy'])->assignRole($role1);
+
+        $permission = Permission::create(['name' => 'tasks.create'])->syncRoles([$rol_owner,$rol_admin, $rol_user]);
+        $permission = Permission::create(['name' => 'tasks.show'])->syncRoles([$rol_owner,$rol_admin, $rol_user]);
+        $permission = Permission::create(['name' => 'tasks.edit'])->syncRoles([$rol_owner,$rol_admin, $rol_user]);
+        $permission = Permission::create(['name' => 'tasks.destroy'])->syncRoles([$rol_owner,$rol_admin]);
+        $permission = Permission::create(['name' => 'tasks.navbar'])->syncRoles([$rol_owner,$rol_admin, $rol_user]);
+
+        $permission = Permission::create(['name' => 'task_statuses.create'])->syncRoles([$rol_owner]);
+        $permission = Permission::create(['name' => 'task_statuses.show'])->syncRoles([$rol_owner,$rol_admin]);
+        $permission = Permission::create(['name' => 'task_statuses.edit'])->assignRole($rol_owner);
+        $permission = Permission::create(['name' => 'task_statuses.destroy'])->assignRole($rol_owner);
+        $permission = Permission::create(['name' => 'task_statuses.navbar'])->syncRoles([$rol_owner,$rol_admin, $rol_user]);
         
-        $permission1 = Permission::create(['name' => 'user_activities.create'])->assignRole($role1);
-        $permission2 = Permission::create(['name' => 'user_activities.show'])->assignRole($role1);
-        $permission3 = Permission::create(['name' => 'user_activities.edit'])->assignRole($role1);
-        $permission4 = Permission::create(['name' => 'user_activities.destroy'])->assignRole($role1);
+        $permission = Permission::create(['name' => 'users.create'])->syncRoles([$rol_owner]);
+        $permission = Permission::create(['name' => 'users.show'])->syncRoles([$rol_owner,$rol_admin]);
+        $permission = Permission::create(['name' => 'users.edit'])->assignRole($rol_owner);
+        $permission = Permission::create(['name' => 'users.destroy'])->assignRole($rol_owner);
+        $permission = Permission::create(['name' => 'users.navbar'])->syncRoles([$rol_owner,$rol_admin]);
+        
+        $permission = Permission::create(['name' => 'user_activities.create'])->assignRole($rol_owner);
+        $permission = Permission::create(['name' => 'user_activities.show'])->syncRoles([$rol_owner,$rol_admin]);
+        $permission = Permission::create(['name' => 'user_activities.edit'])->assignRole($rol_owner);
+        $permission = Permission::create(['name' => 'user_activities.destroy'])->assignRole($rol_owner);
+        $permission = Permission::create(['name' => 'user_activities.navbar'])->assignRole($rol_owner);
 
-        //  $user= User::find(1);
-          //dd($role1);
-        //  $user->assignRole($role1);
-        // $user= User::find(2);
-        //dd($user);
-         // $user->assignRole($role1, '1')->toSql();
-         // User::find(3)->assignRole('User');
+        
 
-        $user = User::find(1);
-        $user->assignRole($role1);
+        
 
          
 

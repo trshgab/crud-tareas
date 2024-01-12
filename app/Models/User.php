@@ -74,7 +74,7 @@ class User extends Authenticatable
 
     // Dentro del modelo User.php
     protected $attributes = [
-        'current_team_id' => 3, // El ID del equipo predeterminado
+        
     ];
 
     protected $guard_name = 'web';

@@ -11,11 +11,17 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-lY6Zvx33gxHn3e1N3PfpLgRE1gK4F2Xp5lBFfoLjOt1FO51Pn7BZQopfj6VflJp4" crossorigin="anonymous"> --}}
-        
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://kit.fontawesome.com/3ed6a4b506.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
+        <script src="../path/to/flowbite/dist/datepicker.js"></script>
+        <script src="{{ asset('js/datepicker.js') }}"></script>
+        
+
 
 
         <!-- Styles -->
@@ -73,5 +79,8 @@
         @stack('modals')
 
         @livewireScripts
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+
     </body>
 </html>

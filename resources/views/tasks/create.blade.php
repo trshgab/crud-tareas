@@ -13,7 +13,7 @@
 
             <div class="mb-4">
                 <label for="descripcion" class="block text-sm font-medium text-gray-600">Descripción:</label>
-                <textarea name="descripcion" id="descripcion" rows="4" class="mt-1 p-2 border rounded w-full" required></textarea>
+                <textarea name="descripcion" id="descripcion" rows="4" class="mt-1 p-2 border rounded w-full"></textarea>
             </div>
 
             <div class="mb-4">

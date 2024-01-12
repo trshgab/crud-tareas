@@ -16,7 +16,14 @@
 
         <div class="mt-4">
             <p class="text-sm font-medium text-gray-600">Rol:</p>
-            <p class="mt-1">{{ $user->current_team_id}}</p>
+            <p class="mt-1">
+                @forelse ($user->roles as $role)
+                {{ $role->name }}                              
+                @empty
+                    Sin Rol
+                @endforelse
+        </p>
+            
         </div>
 
         <div class="mt-6">

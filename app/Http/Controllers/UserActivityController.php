@@ -63,6 +63,7 @@ class UserActivityController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('user_activities.show', UserActivity::class);
         $userActivities = UserActivity::find($id);
 
         return view('user_activities.show', compact('userActivities'));

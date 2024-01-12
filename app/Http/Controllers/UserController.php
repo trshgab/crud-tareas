@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Team;
 use App\Models\UserActivity;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -17,7 +18,8 @@ class UserController extends Controller
 
     public function create() // Muestro el formulario para registrar un usuario 
     {
-        $roles = Team::pluck('name', 'id');
+        $this->authorize('users.create', User::class);
+        $roles = Role::pluck('name', 'id');
         return view('users.create', compact('roles'));
     }
 
@@ -51,16 +53,19 @@ class UserController extends Controller
 
     public function show(User $user) // Muestra un usuario especifico, por eso usa el <User $user>
     {
-        
-        return view('users.show', compact('user'));
+
+        $this->authorize('users.show', User::class);
+        $roles = Role::pluck('name', 'id');
+
+        return view('users.show', compact('user','roles'));
+
     }
-
-
     public function edit(User $user) //Muestra el form para editar un usuario especifico
     {
+        $this->authorize('users.edit', User::class);
         // $user = User::find($user);
         // $users = User::all(); // Futuro selector 
-        $roles = Team::pluck('name', 'id');
+        $roles = Role::pluck('name', 'id');
 
         return view('users.edit', compact('user','roles'));
     }
@@ -93,6 +98,7 @@ class UserController extends Controller
 
     public function destroy(User $user) // Elimina un usuario
     {
+        $this->authorize('users.create', User::class);
         $user->delete(); // Elimina
 
         UserActivity::create([

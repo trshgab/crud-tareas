@@ -40,6 +40,9 @@ class TaskController extends Controller
 
     public function create()
     {
+
+        $this->authorize('tasks.create', Task::class);
+
         $taskStatuses = TaskStatus::all();
         return view('tasks.create', compact('taskStatuses'));
     }
@@ -48,6 +51,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $usuarioAutenticado = Auth::user();
+        
 
 
         Task::create([
@@ -69,12 +73,14 @@ class TaskController extends Controller
 
     public function show(Task $task)
     {
+        $this->authorize('tasks.show', Task::class);
         return view('tasks.show', compact('task'));
     }
 
 
     public function edit($id)
     {
+        $this->authorize('tasks.edit', Task::class);
         $task = Task::find($id);
         $taskStatuses = TaskStatus::all();
 
@@ -107,6 +113,7 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
+        $this->authorize('tasks.destroy', Task::class);
         $task->delete();
 
         UserActivity::create([

@@ -23,6 +23,8 @@ class TaskStatusController extends Controller
      */
     public function create()
     {
+
+        $this->authorize('task_statuses.create', TaskStatus::class);
         return view('task_statuses.create');
     }
 
@@ -58,6 +60,7 @@ class TaskStatusController extends Controller
      */
     public function show(TaskStatus $taskStatus)
     {
+        $this->authorize('task_statuses.show', TaskStatus::class);
         return view('task_statuses.show', compact('taskStatus'));
     }
 
@@ -66,6 +69,7 @@ class TaskStatusController extends Controller
      */
     public function edit(TaskStatus $taskStatus)
     {
+        $this->authorize('task_statuses.edit', TaskStatus::class);
         return view('task_statuses.edit', compact('taskStatus'));
     }
 
@@ -104,6 +108,8 @@ class TaskStatusController extends Controller
      */
     public function destroy(TaskStatus $taskStatus)
     {
+
+        $this->authorize('task_statuses.destroy', TaskStatus::class);
         $taskStatus->delete();
         return redirect()->route('task_statuses.index')->with('success','Estado de tarea eliminado');
     }

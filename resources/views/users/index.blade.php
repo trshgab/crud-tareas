@@ -20,7 +20,13 @@
                         <td class="border p-2">{{ $user->id }}</td>
                         <td class="border p-2">{{ $user->name }}</td>
                         <td class="border p-2">{{ $user->email}}</td>
-                        <td class="border p-2">{{ $user->team->name}}</td>
+                        <td class="border p-2">
+                            @forelse ($user->roles as $role)
+                                {{ $role->name }}                              
+                            @empty
+                                Sin Rol
+                            @endforelse
+                        </td>
                         <td class="border p-2">
                             <!-- Botón para ver la actividad -->
                             <form action="{{ route('users.show', $user->id) }}" method="get" class="inline">

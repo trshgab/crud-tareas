@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Models\User;
 
+
 class AssignSeeder extends Seeder
 {
     /**
@@ -15,7 +16,13 @@ class AssignSeeder extends Seeder
      */
     public function run(): void
     {
-        // $user = User::find(1);
-        // $user->assignRole($role1, 'web');
+        $user = User::find(1);
+        $user->assignRole('Owner');
+
+        $user = User::find(2);
+        $user->assignRole('Admin');
+
+        $user = User::find(3);
+        $user->assignRole('User');
     }
 }
