@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Sistema de Tareas') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -20,44 +20,20 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
         <script src="../path/to/flowbite/dist/datepicker.js"></script>
         <script src="{{ asset('js/datepicker.js') }}"></script>
+        <script src="{{ mix('js/app.js') }}" defer></script>
+
         
 
 
 
         <!-- Styles -->
         @livewireStyles
-        <style>
-            /* Estilos de los botones */
-            .btn {
-                display: inline-flex;
-                align-items: center;
-                padding: 8px 12px;
-                font-size: 14px;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-    
-            /* Estilos de colores */
-            .btn-primary {
-                background-color: #3490dc;
-                color: #ffffff;
-            }
-    
-            .btn-success {
-                background-color: #38c172;
-                color: #ffffff;
-            }
-    
-            .btn-danger {
-                background-color: #e3342f;
-                color: #ffffff;
-            }
-        </style>
+        
     </head>
     <body class="font-sans antialiased">
         <x-banner />
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-300">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->

@@ -27,15 +27,24 @@
                     
                 </select>
             </div>
+
+            <div class="mb-4">
+                <label for="user_id" class="block text-sm font-medium text-gray-600">Responsable:</label>
+                <select name="user_id" id="user_id" class="mt-1 p-2 border rounded w-full" required>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             
 
             <div class="mt-6">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Guardar Tarea</button>
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar Tarea</button>
             </div>
         </form>
 
         <div class="mt-4">
-            <a href="{{ route('tasks.index') }}" class="text-blue-500">Volver a la Lista</a>
+            <a href="{{ route('tasks.index') }}" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Volver a la Lista</a>
         </div>
     </div>
 @endsection

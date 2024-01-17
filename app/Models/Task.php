@@ -22,4 +22,9 @@ class Task extends Model
     {
         return $this->belongsTo(TaskStatus::class, 'status_id');
     }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

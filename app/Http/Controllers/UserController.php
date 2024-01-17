@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index() // Muestra una lista de usuarios
     {
-        $users = User::latest()->paginate(10);; // Obtengo todos los usuarios de la base de datos y los meto en una variable users(?)
+        $users = User::oldest()->paginate(10);; // Obtengo todos los usuarios de la base de datos y los meto en una variable users(?)
         return view('users.index', compact('users'));
     }
 

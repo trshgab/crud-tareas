@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request, Task $task)
     {
         $search = $request->input('search');
         $statusId = $request->input('status_id');
@@ -31,10 +31,13 @@ class TaskController extends Controller
             })
             ->latest()
             ->paginate(10);
+
+            $task->load('creator');
     
         $statuses = TaskStatus::all(); // Esto es necesario para llenar las opciones en el formulario
+        $users = User::all();
     
-        return view('tasks.index', compact('tasks', 'statuses'));
+        return view('tasks.index', compact('tasks', 'statuses','users'));
     }
 
 
@@ -44,7 +47,9 @@ class TaskController extends Controller
         $this->authorize('tasks.create', Task::class);
 
         $taskStatuses = TaskStatus::all();
-        return view('tasks.create', compact('taskStatuses'));
+        $users = User::all();
+
+        return view('tasks.create', compact('taskStatuses','users'));
     }
 
 
@@ -58,8 +63,9 @@ class TaskController extends Controller
             'titulo' => $request->input('titulo'),
             'descripcion' => $request->input('descripcion'),
             'fecha_limite' => $request->input('fecha_limite'),
-            'user_id' => $usuarioAutenticado->id,
+            'user_id' => $request->input('user_id'),
             'status_id' => $request->input('status_id'),
+            'creator'=> auth()->user()->id,
         ]);
 
         UserActivity::create([

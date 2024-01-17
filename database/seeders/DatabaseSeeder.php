@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TeamSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(AssignSeeder::class);
+        $this->call(PermissionSeeder::class);
         // \App\Models\User::factory(20)->create();
         // \App\Models\Task::factory(100)->create();
         // \App\Models\Team::factory(20)->create();

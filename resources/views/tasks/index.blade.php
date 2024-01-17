@@ -37,6 +37,16 @@
                     </div>
                       
                 </div>
+                
+                <div class="mr-4">
+                    <label for="user_id" class="mr-2">Filtrar por Responsable:</label>
+                    <select name="user_id" id="user_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" selected>Seleccione un responsable</option>
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="mr-4">
                     <br>
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
@@ -48,7 +58,9 @@
                         <tr>
                             <th scope="col" class="px-6 py-3">Fecha y Hora</th>
                             <th scope="col" class="px-6 py-3">Título</th>
+                            <th scope="col" class="px-6 py-3">Creador</th>
                             <th scope="col" class="px-6 py-3">Estado</th>
+                            <th scope="col" class="px-6 py-3">Responsable</th>
                             <th scope="col" class="px-6 py-3">Acciones</th>
                         </tr>
                     </thead>
@@ -57,6 +69,7 @@
                         <tr class="bg-gray-200 border-b ">
                                 <td  scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $task->created_at }}</td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $task->titulo }}</td>
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $user->name }}</td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" style="background-color: rgba({{ $task->status->color }}, 0.5);">{{ $task->status->nombre }}
                                     <!-- Mostrar el estado de la tarea -->
                                     @if ($task->status)
@@ -65,21 +78,17 @@
                                         Sin Estado
                                     @endif
                                 </td>
-                                {{-- <td class="border p-2">
-                                    <a href="{{ route('tasks.show', $task->id) }}" class="text-blue-500 mr-2">Ver</a>
-                                    <a href="{{ route('tasks.edit', $task->id) }}" class="text-green-500">Editar</a>
-                                    <form action="{{ route('tasks.destroy', $task->id) }}" method="post" class="inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="text-red-500">Eliminar</button>
-                                    </form>
-                                </td> --}}
+
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {{ $task->creator->name }} <!-- Muestra el nombre del responsable -->
+                                </td>
+                               
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <!-- Botón para ver la actividad -->
                                     <form action="{{ route('tasks.show', $task->id) }}" method="get" class="inline">
                                         @csrf
                                         {{-- @method('show') --}}
-                                        <button type="submit" class="btn btn-primary">
+                                        <button type="submit" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
                                             <i class="fas fa-eye"></i> Ver
                                         </button>
                                     </form>
@@ -88,7 +97,7 @@
                                     <form action="{{ route('tasks.edit', $task->id) }}" method="get" class="inline">
                                         @csrf
                                         {{-- @method('edit') --}}
-                                        <button type="submit" class="btn btn-success">
+                                        <button type="submit" class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
                                             <i class="fas fa-edit"></i> Editar
                                         </button>
                                     </form>
@@ -97,7 +106,7 @@
                                     <form action="{{ route('tasks.destroy', $task->id) }}" method="post" class="inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="submit" class="btn btn-danger">
+                                        <button type="submit" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
                                             <i class="fas fa-trash-alt"></i> Eliminar
                                         </button>
                                     </form>
@@ -105,9 +114,15 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    
+                
                 </table>
             </div>
+            @if(session('success'))
+                <div class="bg-green-200 border-green-500 text-green-800 border-l-4 p-4 mt-4" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+        
             {{ $tasks->links() }}
             @can('tasks.create')
                 <div class="mt-4">
