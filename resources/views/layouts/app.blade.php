@@ -12,6 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-lY6Zvx33gxHn3e1N3PfpLgRE1gK4F2Xp5lBFfoLjOt1FO51Pn7BZQopfj6VflJp4" crossorigin="anonymous"> --}}
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
 
         <!-- Scripts -->
@@ -21,6 +22,8 @@
         <script src="../path/to/flowbite/dist/datepicker.js"></script>
         <script src="{{ asset('js/datepicker.js') }}"></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
         
 

@@ -69,7 +69,7 @@
                         <tr class="bg-gray-200 border-b ">
                                 <td  scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $task->created_at }}</td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $task->titulo }}</td>
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $user->name }}</td>
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ $task->task_creator }}</td>
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap" style="background-color: rgba({{ $task->status->color }}, 0.5);">{{ $task->status->nombre }}
                                     <!-- Mostrar el estado de la tarea -->
                                     @if ($task->status)
@@ -134,3 +134,12 @@
             
         </div>
 @endsection
+
+<script>
+    $(document).ready(function() {
+        $('#status').select2({
+            placeholder: 'Seleccione un estado',
+            allowClear: true // Esto permite borrar la selección
+        });
+    });
+</script>

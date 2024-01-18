@@ -65,7 +65,7 @@ class TaskController extends Controller
             'fecha_limite' => $request->input('fecha_limite'),
             'user_id' => $request->input('user_id'),
             'status_id' => $request->input('status_id'),
-            'creator'=> auth()->user()->id,
+            'task_creator'=> $request->input('task_creator'),
         ]);
 
         UserActivity::create([

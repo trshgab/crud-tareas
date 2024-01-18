@@ -29,6 +29,12 @@
             </div>
 
             <div class="mb-4">
+                <label for="task_creator" class="block text-sm font-medium text-gray-600">Creador:</label>
+                <input type="text" name="task_creator" id="task_creator" class="mt-1 p-2 border rounded w-full" value={{Auth::user()->name}} @readonly(true)>
+            </div>
+
+
+            <div class="mb-4">
                 <label for="user_id" class="block text-sm font-medium text-gray-600">Responsable:</label>
                 <select name="user_id" id="user_id" class="mt-1 p-2 border rounded w-full" required>
                     @foreach($users as $user)
