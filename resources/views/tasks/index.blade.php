@@ -21,6 +21,14 @@
                     </select>
                 </div>
 
+                {{-- <script>
+                    $(document).ready(function() {
+                        $('#status').select2({
+                            placeholder: 'Seleccione un estado',
+                            allowClear: true // Esto permite borrar la selección
+                        });
+                    });
+                </script> --}}
                 
                 
             
@@ -135,11 +143,4 @@
         </div>
 @endsection
 
-<script>
-    $(document).ready(function() {
-        $('#status').select2({
-            placeholder: 'Seleccione un estado',
-            allowClear: true // Esto permite borrar la selección
-        });
-    });
-</script>
+
