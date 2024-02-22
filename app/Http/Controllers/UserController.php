@@ -31,24 +31,29 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8',
             'current_team_id' => 'required|max:1'
-
         ]);
 
-        // Crea un nuevo usuario en la Base de datos
-        User::create([
+        // Crea un nuevo usuario en la base de datos
+        $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
             'current_team_id' => $request->input('current_team_id'),
         ]);
 
+        // Asignar el rol al usuario
+        if ($request->has('current_team_id')) {
+            $role = Role::findById($request->input('current_team_id'));
+            $user->assignRole($role);
+        }
+
+        // Crear una actividad de usuario
         UserActivity::create([
             'user_id' => auth()->user()->id,
             'action_type' => 'Creación de Usuario',
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Usuario Registrado Correctamente'); // redirige a las lista de usuarios con un mensaje de exito
-        
+        return redirect()->route('users.index')->with('success', 'Usuario registrado correctamente');
     }
 
     public function show(User $user) // Muestra un usuario especifico, por eso usa el <User $user>
@@ -60,40 +65,40 @@ class UserController extends Controller
         return view('users.show', compact('user','roles'));
 
     }
-    public function edit(User $user) //Muestra el form para editar un usuario especifico
+    public function edit(User $user)
     {
         $this->authorize('users.edit', User::class);
-        // $user = User::find($user);
-        // $users = User::all(); // Futuro selector 
         $roles = Role::pluck('name', 'id');
-
-        return view('users.edit', compact('user','roles'));
+        $selectedRole = $user->roles->pluck('id')->toArray(); // Obtener el ID del rol actual del usuario
+        return view('users.edit', compact('user', 'roles', 'selectedRole'));
     }
 
-    public function update(Request $request, User $user) // Actualiza un usuario en la base de datos
+    public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,'.$user->id,
-            //'password' => 'required|string|min:8',
-            'current_team_id' => 'required|max:1'
-
         ]);
-        
+    
+        // Actualizar los datos básicos del usuario
         $user->update([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            //'password' => bcrypt($request->input('password')),
-            'current_team_id' => $request->input('current_team_id'),
-
         ]);
-
+    
+        // Asignar el nuevo rol al usuario
+        if ($request->has('current_team_id')) {
+            $role = Role::findById($request->input('current_team_id'));
+            $user->syncRoles([$role]);
+        }
+    
+        // Crear una actividad de usuario
         UserActivity::create([
             'user_id' => auth()->user()->id,
-            'action_type' => 'Edicion De Usuario',
+            'action_type' => 'Edición de Usuario',
         ]);
-
-        return redirect()->route('users.index')->with('success', 'Usuario Actualizado Correctamente');
+    
+        return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente');
     }
 
     public function destroy(User $user) // Elimina un usuario

@@ -22,11 +22,11 @@
                 <label for="current_team_id" class="block text-sm font-medium text-gray-600">Rol:</label>
                 <select name="current_team_id" id="current_team_id" class="mt-1 p-2 border rounded w-full" required>
                     @foreach ($roles as $roleId => $roleName)
-                        <option value="{{ $roleId }}" {{ $user->current_team_id == $roleId ? 'selected' : '' }}>
+                        <option value="{{ $roleId }}" {{ in_array($roleId, $selectedRole) ? 'selected' : '' }}>
                             {{ $roleName }}
                         </option>
                     @endforeach
-                </select>
+                </select>                
             </div>
 
             

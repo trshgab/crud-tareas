@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\models\Task;
-use App\models\TaskStatus;
+use App\Models\Task;
+use App\Models\TaskStatus;
 use App\Models\User;
 use App\Models\UserActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
+
 
 
 class TaskController extends Controller
