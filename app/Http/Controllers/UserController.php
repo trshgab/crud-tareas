@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Team;
 use App\Models\UserActivity;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -113,4 +114,20 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('sucess', 'Usuario Eliminado Exitosamente'); // Redirige
     }
+    public function updatePassword(Request $request, User $user)
+    {
+        // Validar los datos del formulario
+        $request->validate([
+            'newPassword' => 'required|string|min:8|confirmed', // La regla "confirmed" verifica si el campo de confirmación coincide con el campo de nueva contraseña
+        ]);
+
+        // Actualizar la contraseña del usuario
+        $user->update([
+            'password' => bcrypt($request->newPassword),
+        ]);
+
+        // Redirigir de vuelta a la vista de detalles del usuario con un mensaje de éxito
+        return redirect()->route('users.show', $user)->with('success', 'Contraseña actualizada exitosamente');
+    }
+
 }

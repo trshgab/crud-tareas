@@ -22,6 +22,9 @@ Route::get('/', function () {
         Route::resource('users', UserController::class);
         Route::resource('user_activities', UserActivityController::class);
         Route::resource('roles', RoleController::class);
+        // Agrega esta ruta en tu archivo web.php
+        Route::put('/users/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
+
 
 
 Route::get('/dashboard', function () {
