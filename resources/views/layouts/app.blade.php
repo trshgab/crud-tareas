@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -19,9 +21,9 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="https://kit.fontawesome.com/3ed6a4b506.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
-        <script src="../path/to/flowbite/dist/datepicker.js"></script>
-        <script src="{{ asset('js/datepicker.js') }}"></script>
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        {{-- <script src="../path/to/flowbite/dist/datepicker.js"></script> --}}
+        {{-- <script src="{{ asset('js/datepicker.js') }}"></script> --}}
+        {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
