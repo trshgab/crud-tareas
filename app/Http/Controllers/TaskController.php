@@ -20,6 +20,7 @@ class TaskController extends Controller
         $search = $request->input('search');
         $statusId = $request->input('status_id');
         $day = $request->input('day');
+        $responsable = $request->input('user_id');
     
         $tasks = Task::when($search, function ($query) use ($search) {
                 $query->where('titulo', 'like', '%' . $search . '%');
@@ -29,6 +30,9 @@ class TaskController extends Controller
             })
             ->when($day, function ($query) use ($day) {
                 $query->whereDate('created_at', $day);
+            })
+            ->when($responsable, function ($query) use ($responsable) {
+                $query->where('user_id', $responsable);
             })
             ->latest()
             ->paginate(10);
