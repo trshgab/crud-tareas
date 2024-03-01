@@ -141,8 +141,11 @@
             </div>
         </form>
 
+        
         <div class="mt-4">
             <a href="{{ route('roles.index') }}" class="text-blue-500">Volver a la Lista</a>
+            
         </div>
     </div>
-@endsection
+    @endsection
+    

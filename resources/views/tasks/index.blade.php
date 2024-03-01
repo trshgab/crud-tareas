@@ -130,6 +130,12 @@
                     {{ session('success') }}
                 </div>
             @endif
+
+            @if(session('error'))
+                <div class="bg-red-200 border-red-500 text-red-800 border-l-4 p-4 mt-4" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
         
             {{ $tasks->links() }}
             @can('tasks.create')

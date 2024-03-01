@@ -77,42 +77,51 @@ class TaskStatusController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, TaskStatus $taskStatus)
-    {
-        
-        
+{
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'nullable|string',
+        'color' => 'required',
+    ]);
 
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'descripcion' => 'nullable|string',
-            'color' => 'required',
-        ]);
+    $colorRgb = $this->hexToRgb($request);
 
-        $colorRgb = $this->hexToRgb($request);
+    $taskStatus->update([
+        'nombre' => $request->input('nombre'),
+        'descripcion' => $request->input('descripcion'),
+        'color' =>  $colorRgb
+    ]);
 
-        $taskStatus->update([
-            'nombre' => $request->input('nombre'),
-            'descripcion' => $request->input('descripcion'),
-            'color' =>  $colorRgb
-        ]);
+    UserActivity::create([
+        'user_id' => auth()->user()->id,
+        'action_type' => 'Actualización de Estado Tarea',
+    ]);
 
-        UserActivity::create([
-            'user_id' => auth()->user()->id,
-            'action_type' => 'Creación de Estado Tarea',
-        ]);
+    return redirect()->route('task_statuses.index')->with('success', 'Estado de Tarea Actualizado');
+}
 
-
-        return redirect()->route('task_statuses.index')->with('success', 'Estado de Tarea Actualizado');
-    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(TaskStatus $taskStatus)
     {
-
         $this->authorize('task_statuses.destroy', TaskStatus::class);
+
+        // Verificar si el ID del estado de tarea es 1, 2 o 3
+        if ($taskStatus->id === 1 || $taskStatus->id === 2 || $taskStatus->id === 3) {
+            return redirect()->route('task_statuses.index')->with('error', 'No se pueden eliminar los estados de tarea por defecto.');
+        }
+
+        // Actualizar las tareas asociadas para que queden sin estado de tarea
+        $taskStatus->tasks()->update(['status_id' => null]);
+
+        // Eliminar el estado de tarea
         $taskStatus->delete();
-        return redirect()->route('task_statuses.index')->with('success','Estado de tarea eliminado');
+
+        return redirect()->route('task_statuses.index')->with('error', 'Estado de tarea eliminado exitosamente.');
     }
+
+
 
     public function hexToRgb(Request $request)
 {

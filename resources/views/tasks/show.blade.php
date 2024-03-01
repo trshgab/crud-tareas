@@ -17,9 +17,16 @@
         </p>
 
         <p class="mb-4">
-            <strong>Fecha Límite:</strong>
-            {{ $task->fecha_limite }}
+            <strong>Descripción:</strong>
+            {{ $task->descripcion }}.
         </p>
+
+        <p class="mb-4">
+            <strong>Fecha y Hora de Creación:</strong>
+            {{ $task->created_at }}.
+        </p>
+
+        
 
         <div class="mt-4">
             <a href="{{ route('tasks.index') }}" class="text-blue-500">Volver a la Lista</a>

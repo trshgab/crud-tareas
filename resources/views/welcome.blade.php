@@ -54,10 +54,10 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Tareas</a>
                     @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Iniciar Sesion</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registrarse</a>
                         @endif
                     @endauth
                 </div>
@@ -151,7 +151,7 @@
                 </div> -->
 
                 <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
-                    <div class="text-center text-sm text-gray-500 sm:text-left">
+                    {{-- <div class="text-center text-sm text-gray-500 sm:text-left">
                         <div class="flex items-center gap-4">
                             <a href="https://github.com/sponsors/taylorotwell" class="group inline-flex items-center hover:text-gray-700 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="-mt-px mr-1 w-5 h-5 stroke-gray-400 group-hover:stroke-gray-600">
@@ -160,11 +160,14 @@
                                 Sponsor
                             </a>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                        Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-                    </div>
+                    {{-- <div class="flex justify-center">
+                        <p class="text-lg font-bold text-center text-gray-500">Sistema de Gestión de Tareas</p>
+                    </div> --}}
+                    
+                    
+                    
                 </div>
             </div>
         </div>

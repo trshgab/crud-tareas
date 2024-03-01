@@ -57,6 +57,18 @@
             </table>
         </div>
 
+        @if(session('success'))
+                <div class="bg-green-200 border-green-500 text-green-800 border-l-4 p-4 mt-4" role="alert">
+                    {{ session('success') }}
+                </div>
+        @endif
+
+        @if(session('error'))
+                <div class="bg-red-200 border-red-500 text-red-800 border-l-4 p-4 mt-4" role="alert">
+                    {{ session('error') }}
+                </div>
+        @endif
+
         {{ $taskStatuses->links() }}
 
         @can('task_statuses.create')

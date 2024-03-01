@@ -19,7 +19,7 @@ class PermissionSeeder extends Seeder
 
         $permission = Permission::create(['name' => 'tasks.create', 'display_name' => 'Crear Tareas'])->syncRoles(['Owner','Admin','User']);
         $permission = Permission::create(['name' => 'tasks.show', 'display_name' => 'Mostrar Tareas'])->syncRoles(['Owner','Admin','User']);
-        $permission = Permission::create(['name' => 'tasks.edit', 'display_name' => 'Editar Tareas'])->syncRoles(['Owner','Admin','User']);;
+        $permission = Permission::create(['name' => 'tasks.edit', 'display_name' => 'Editar Tareas'])->syncRoles(['Owner','Admin']);;
         $permission = Permission::create(['name' => 'tasks.destroy', 'display_name' => 'Eliminar Tareas'])->syncRoles(['Owner','Admin']);
         $permission = Permission::create(['name' => 'tasks.navbar', 'display_name' => 'Ver Tareas'])->syncRoles(['Owner','Admin','User']);
 

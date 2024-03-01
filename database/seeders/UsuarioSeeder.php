@@ -17,19 +17,19 @@ class UsuarioSeeder extends Seeder
     {
         $this->command->info('Cargando Usuarios Admin');
         User::create(array(
-        	"name" => "gabriel",
-        	"email" => "gmrgabo@gmail.com",
-        	"password" => Hash::make("12341234")
+        	"name" => "Owner",
+        	"email" => "owner@owner.com",
+        	"password" => Hash::make("owner")
         ));
         User::create([
-            "name" => "admin",
-            "email" => "admin@adm.com",
-            "password" => Hash::make("12341234")
+            "name" => "Admin",
+            "email" => "admin@admin.com",
+            "password" => Hash::make("admin")
         ]);
         User::create(array(
-            "name" => "user",
-            "email" => "user@usr.com",
-            "password" => Hash::make("12341234")
+            "name" => "User",
+            "email" => "user@user.com",
+            "password" => Hash::make("user")
         ));
     } 
 }

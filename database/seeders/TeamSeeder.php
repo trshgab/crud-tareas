@@ -18,7 +18,7 @@ class TeamSeeder extends Seeder
         DB::table('teams')->insert(array(
         	"user_id" => 1,
             "name" => "Owner",
-            "personal_team" =>1,
+            "personal_team" =>0,
         	
         ));
         DB::table('teams')->insert(array(

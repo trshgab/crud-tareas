@@ -104,15 +104,24 @@ class UserController extends Controller
 
     public function destroy(User $user) // Elimina un usuario
     {
-        $this->authorize('users.create', User::class);
-        $user->delete(); // Elimina
+    
+        if ($user->hasRole('Owner')) {
+            return redirect()->route('users.index')->with('error', 'No se puede eliminar un usuario con el rol de propietario.');
+        }
 
+        // Verificar si el usuario autenticado tiene permiso para eliminar usuarios
+        $this->authorize('users.destroy', User::class);
+
+        // Eliminar el usuario
+        $user->delete();
+
+        // Crear una actividad de usuario
         UserActivity::create([
             'user_id' => auth()->user()->id,
             'action_type' => 'Eliminación de Usuario',
         ]);
 
-        return redirect()->route('users.index')->with('sucess', 'Usuario Eliminado Exitosamente'); // Redirige
+        return redirect()->route('users.index')->with('error', 'Usuario eliminado exitosamente');
     }
     public function updatePassword(Request $request, User $user)
     {

@@ -16,4 +16,10 @@ class TaskStatus extends Model
     public function role(){
         return $this->hasMany(Task::class, 'status_id');
     }
+
+    public function tasks()
+{
+    return $this->hasMany(Task::class, 'status_id');
+}
+
 }

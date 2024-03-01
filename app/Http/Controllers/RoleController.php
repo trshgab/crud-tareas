@@ -130,6 +130,6 @@ class RoleController extends Controller
         $this->authorize('tasks.destroy', Role::class);
         $role->delete();
 
-        return redirect()->route('roles.index')->with('success', 'Rol Eliminado Correctamente');
+        return redirect()->route('roles.index')->with('error', 'Rol Eliminado Correctamente');
     }
 }
