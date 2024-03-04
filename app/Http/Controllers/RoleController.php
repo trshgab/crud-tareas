@@ -11,9 +11,6 @@ use App\Models\User;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
 
@@ -21,9 +18,7 @@ class RoleController extends Controller
         return view('roles.index', compact('roles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $this->authorize('roles.create', Role::class);
@@ -36,9 +31,7 @@ class RoleController extends Controller
         
         return view('roles.create', compact('permissions','users'));
     }
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
 
@@ -53,12 +46,12 @@ class RoleController extends Controller
             
         ]);
 
-        // if ($request->has('users')) {
-        //     foreach ($request->input('users') as $userId) {
-        //         $user = User::find($userId);
-        //         $user->assignRole($role);
-        //     }
-        // }
+        
+        
+        
+        
+        
+        
 
         $permissions = $request->input('permissions',[]);
     
@@ -68,9 +61,6 @@ class RoleController extends Controller
         
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Role $role)
     {
         $this->authorize('roles.show', Role::class);
@@ -82,9 +72,6 @@ class RoleController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Role $role)
     {
         $this->authorize('roles.edit', Role::class);
@@ -100,14 +87,11 @@ class RoleController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Role $role)
     {
         $request->validate([
             'name' => 'required|unique:roles,name,' . $role->id,
-            'permissions' => 'array', // Asegúrate de que permissions sea un array
+            'permissions' => 'array', 
         ]);
 
         $role->update([
@@ -117,19 +101,17 @@ class RoleController extends Controller
         $permissions = $request->input('permissions', []);
         $role->syncPermissions($permissions);
 
-        // Resto del código del controlador
 
         return redirect()->route('roles.index')->with('success', 'Rol actualizado exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Role $role)
     {
         $this->authorize('tasks.destroy', Role::class);
         $role->delete();
 
+
+        
         return redirect()->route('roles.index')->with('error', 'Rol Eliminado Correctamente');
     }
 }

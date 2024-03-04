@@ -24,7 +24,7 @@ Route::get('/', function () {
         Route::resource('roles', RoleController::class);
         // Agrega esta ruta en tu archivo web.php
         Route::put('/users/{user}/update-password', [UserController::class, 'updatePassword'])->name('users.updatePassword');
-        Route::put('/task_statuses/{taskStatus}', [TaskStatusController::class, 'update'])->name('task_statuses.update');
+        // Route::put('/task_statuses/{taskStatus}', [TaskStatusController::class, 'update'])->name('task_statuses.update');
 
 
 

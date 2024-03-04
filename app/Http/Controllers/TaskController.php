@@ -39,7 +39,7 @@ class TaskController extends Controller
 
             $task->load('creator');
     
-        $statuses = TaskStatus::all(); // Esto es necesario para llenar las opciones en el formulario
+        $statuses = TaskStatus::all(); 
         $users = User::all();
     
         return view('tasks.index', compact('tasks', 'statuses','users'));
@@ -132,6 +132,6 @@ class TaskController extends Controller
             'action_type' => 'Eliminacion de Tarea',
         ]);
 
-        return redirect()->route('tasks.index')->with('success', 'Tarea Eliminada Correctamente');
+        return redirect()->route('tasks.index')->with('error', 'Tarea Eliminada Correctamente');
     }
 }
